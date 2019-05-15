@@ -25,6 +25,8 @@ class DropdownControl extends React.Component {
     // Should the menu contents always be rendered?  Defaults to true.
     // Set to false to have menu contents removed from the DOM on close.
     alwaysRenderMenu: PropTypes.bool,
+    // Props to pass to DropdownButton
+    buttonProps: PropTypes.object,
   };
 
   static defaultProps = {
@@ -34,12 +36,15 @@ class DropdownControl extends React.Component {
   };
 
   renderButton(isOpen, getActorProps) {
-    const {label, button} = this.props;
+    const {label, button, buttonProps} = this.props;
     if (button) {
       return button({isOpen, getActorProps});
     }
     return (
-      <StyledDropdownButton {...getActorProps({isStyled: true})} isOpen={isOpen}>
+      <StyledDropdownButton
+        {...getActorProps({...buttonProps, isStyled: true})}
+        isOpen={isOpen}
+      >
         {label}
       </StyledDropdownButton>
     );
